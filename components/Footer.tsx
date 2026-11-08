@@ -15,6 +15,8 @@ export default function Footer() {
   const socialFacebook = getSetting('social_facebook') || '';
   const socialTiktok = getSetting('social_tiktok') || '';
   const socialSnapchat = getSetting('social_snapchat') || '';
+  const poweredBy = getSetting('footer_powered_by') || 'Doctor Barns Tech';
+  const poweredByLink = getSetting('footer_powered_by_link') || 'https://doctorbarns.com';
 
   const links = [
     { label: 'Shop', href: '/shop' },
@@ -88,7 +90,10 @@ export default function Footer() {
         </div>
 
         <p className="mt-6 text-xs text-gray-600">
-          © {new Date().getFullYear()} {siteName}
+          © {new Date().getFullYear()} {siteName}. Powered by{' '}
+          <a href={poweredByLink} target="_blank" rel="noopener" className="text-gray-600 hover:underline">
+            {poweredBy}
+          </a>
         </p>
       </div>
     </footer>
