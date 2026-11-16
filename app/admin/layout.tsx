@@ -226,6 +226,11 @@ export default function AdminLayout({
       icon: 'ri-settings-3-line',
       path: '/admin/settings'
     },
+    {
+      title: 'Account',
+      icon: 'ri-lock-password-line',
+      path: '/admin/account'
+    },
   ];
 
   const visibleMenuItems = menuItems.filter(item => {
@@ -349,6 +354,14 @@ export default function AdminLayout({
 
                 {showUserMenu && (
                   <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-20">
+                    <Link
+                      href="/admin/account"
+                      onClick={() => setShowUserMenu(false)}
+                      className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors text-left cursor-pointer"
+                    >
+                      <i className="ri-lock-password-line text-gray-700 w-5 h-5 flex items-center justify-center"></i>
+                      <span className="text-gray-800">Change password</span>
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors border-t border-gray-200 text-left cursor-pointer"

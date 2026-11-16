@@ -59,18 +59,18 @@ async function main() {
     console.log('User created. Setting role to admin...');
   }
 
-  const updateRes = await fetch(`${restUrl}?email=eq.${encodeURIComponent(email)}`, {
+  const updateRes = await fetch(`${restUrl}?email=ilike.${encodeURIComponent(email)}`, {
     method: 'PATCH',
-    headers: headersRest,
+    headers: { ...headersRest, Prefer: 'return=representation' },
     body: JSON.stringify({ role: 'admin' }),
   });
 
-  if (!updateRes.ok) {
-    const errText = await updateRes.text();
+  const updated = await updateRes.json().catch(() => null);
+
+  if (!updateRes.ok || !Array.isArray(updated) || updated.length === 0) {
+    const errText = typeof updated === 'string' ? updated : JSON.stringify(updated);
     console.error('Update profile error:', errText || updateRes.statusText);
-    if (updateRes.status === 404 || errText.includes('0 rows')) {
-      console.error('Profile may not exist yet. Wait a few seconds and run the script again.');
-    }
+    console.error('Profile may not exist yet, or the email did not match. Wait a few seconds and run the script again.');
     process.exit(1);
   }
 
